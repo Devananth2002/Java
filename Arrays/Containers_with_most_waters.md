@@ -5,6 +5,8 @@
 - You need to pick **two lines** such that they form a container
 - The container should hold the **maximum water**
 
+<img width="801" height="383" alt="image" src="https://github.com/user-attachments/assets/bf18d54e-e7dc-4635-8221-15ec32f7bf20" />
+
 ---
 
 ## Visual Idea
