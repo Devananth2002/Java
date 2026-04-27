@@ -11,7 +11,7 @@
 
 Think like this:
 - Keep adding numbers
-- If sum becomes negative → drop it and start fresh
+- If starting fresh is better than continuing → restart
 - Track the maximum sum seen so far
 
 Best subarray here: [4, -1, 2, 1] → sum = 6
@@ -32,7 +32,7 @@ Best subarray here: [4, -1, 2, 1] → sum = 6
 
 ---
 
-### 2. Kadane’s Algorithm (Best)
+### 2. Kadane’s Algorithm (Reset to 0 version)
 - When to use
   - Interviews
   - Large arrays
@@ -45,7 +45,22 @@ Best subarray here: [4, -1, 2, 1] → sum = 6
 
 ---
 
-## Example: Maximum Subarray (Kadane’s Algorithm)
+### 3. Kadane’s Algorithm (Better version - Your Approach)
+- When to use
+  - Best and clean approach
+  - Handles negative cases clearly
+
+- Idea (step-by-step logic)
+  - Add current number to current sum
+  - Compare:
+    - Continue previous subarray OR
+    - Start new from current element
+  - Take the better one
+  - Track max sum
+
+---
+
+## Example: Maximum Subarray (Kadane’s - Your Approach)
 
 ### Description
 - Find the subarray with the largest sum.
@@ -61,17 +76,61 @@ nums = [-2,1,-3,4,-1,2,1,-5,4]
 ```
 
 ### Explanation
-- Start with sum = 0, max = very small
-- Add -2 → sum = -2 → reset to 0
-- Add 1 → sum = 1
-- Add -3 → sum = -2 → reset to 0
-- Add 4 → sum = 4
-- Add -1 → sum = 3
-- Add 2 → sum = 5
-- Add 1 → sum = 6 → max = 6
-- Continue → final max = 6
+- Start:
+  - currSum = -2, max = -2
+- Next:
+  - Compare (currSum + 1 = -1) vs (1) → take 1
+- Continue:
+  - Compare extend vs restart at each step
+- Best subarray becomes:
+  - [4, -1, 2, 1] → sum = 6
 
 ---
+
+### Code (Java)
+```java
+class KadaneBetter {
+    public static int maxSubArray(int[] nums) {
+        int currSum = 0;
+        int maxSum = Integer.MIN_VALUE;
+
+        for (int i = 0; i < nums.length; i++) {
+            currSum += nums[i];
+
+            if (currSum < nums[i]) {
+                currSum = nums[i];
+            }
+
+            if (currSum > maxSum) {
+                maxSum = currSum;
+            }
+        }
+
+        return maxSum;
+    }
+}
+```
+
+### Complexity
+- Time: O(n)
+- Space: O(1)
+
+---
+
+## Example: Maximum Subarray (Kadane - Reset Version)
+
+### Description
+- Standard version using reset to 0.
+
+### Sample Input
+```
+nums = [-2,1,-3,4,-1,2,1,-5,4]
+```
+
+### Sample Output
+```
+6
+```
 
 ### Code (Java)
 ```java
@@ -159,26 +218,28 @@ class MaxSubarrayBrute {
 ## When to Use
 - When asked for maximum sum subarray
 - When array has negative numbers
-- Base for many DP problems
+- Used in dynamic programming problems
 
 ---
 
 ## Simple Rule
-- If current sum becomes negative → reset to 0
-- Always track maximum
+- At each step:
+  - Continue OR restart → choose max
+- Always track global maximum
 
 ---
 
 ## Common Mistakes
-- Initializing maxSum as 0 (wrong for all negative arrays)
-- Forgetting to update max before reset
-- Not handling single element array
+- Initializing maxSum as 0 (fails for all negative arrays)
+- Resetting incorrectly
+- Forgetting to compare with current element
 
 ---
 
 ## Summary Table
 
-| Type            | Use                | Time   | Space |
-|-----------------|--------------------|--------|-------|
-| Brute Force     | Small arrays       | O(n^2) | O(1)  |
-| Kadane’s Algo   | Best approach      | O(n)   | O(1)  |
+| Type                     | Use                | Time   | Space |
+|--------------------------|--------------------|--------|-------|
+| Brute Force              | Small arrays       | O(n^2) | O(1)  |
+| Kadane (Reset)           | Standard approach  | O(n)   | O(1)  |
+| Kadane (Better version)  | Clean & optimal    | O(n)   | O(1)  |
