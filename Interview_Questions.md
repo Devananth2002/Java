@@ -1,11 +1,9 @@
-# Java Interview guide
+# Java Interview Guide
 ## Core Java Beginner to Intermediate Questions
 
 ---
 
 # 1. What is Java?
-
-## Answer
 
 Java is a high-level, object-oriented, platform-independent programming language developed by Sun Microsystems.
 
@@ -64,9 +62,7 @@ class Main {
 
 ---
 
-## Q) Why is Java platform independent?
-
-### Answer
+## Why is Java platform independent?
 
 Java source code is converted into bytecode.
 
@@ -81,9 +77,7 @@ the same Java program works everywhere.
 
 ---
 
-## Q) What is bytecode?
-
-### Answer
+## What is bytecode?
 
 Bytecode is the intermediate code generated after compilation.
 
@@ -95,22 +89,17 @@ JVM understands bytecode and converts it into machine instructions.
 
 ---
 
-## Q) Why is Java secure?
-
-### Answer
+## Why is Java secure?
 
 Java provides security through:
 - No direct pointer access
 - Bytecode verification
 - JVM sandbox
 - Automatic memory management
-- Security manager
 
 ---
 
 # 2. What is the difference between JDK, JRE, and JVM?
-
-## Answer
 
 JDK, JRE, and JVM are core parts of Java.
 
@@ -183,9 +172,7 @@ Uses JRE and JVM.
 
 ---
 
-## Q) Can we run Java program without JDK?
-
-### Answer
+## Can we run Java program without JDK?
 
 Yes.
 
@@ -195,9 +182,7 @@ JDK is needed only for development.
 
 ---
 
-## Q) Does JVM understand Java source code?
-
-### Answer
+## Does JVM understand Java source code?
 
 No.
 
@@ -208,8 +193,6 @@ Compiler converts source code into bytecode first.
 ---
 
 # 3. Explain primitive data types in Java
-
-## Answer
 
 Primitive data types store actual values directly in memory.
 
@@ -256,9 +239,7 @@ Primitives:
 
 ---
 
-## Q) Difference between primitive and object?
-
-### Answer
+## Difference between primitive and object?
 
 | Primitive | Object |
 |---|---|
@@ -269,9 +250,7 @@ Primitives:
 
 ---
 
-## Q) Why wrapper classes are needed?
-
-### Answer
+## Why wrapper classes are needed?
 
 Collections work only with objects.
 
@@ -285,9 +264,20 @@ Wrapper classes also provide utility methods.
 
 ---
 
-# 4. Difference between == and equals()
+## What are wrapper classes?
 
-## Answer
+Wrapper classes convert primitives into objects.
+
+| Primitive | Wrapper |
+|---|---|
+| int | Integer |
+| double | Double |
+| char | Character |
+| boolean | Boolean |
+
+---
+
+# 4. Difference between == and equals()
 
 `==` compares memory references.
 
@@ -344,9 +334,7 @@ Because primitives store actual values.
 
 ---
 
-## Q) Why does == sometimes work for String literals?
-
-### Answer
+## Why does == sometimes work for String literals?
 
 Because Java stores string literals in String Pool.
 
@@ -361,9 +349,7 @@ Both references point to same object.
 
 ---
 
-## Q) What is String Pool?
-
-### Answer
+## What is String Pool?
 
 String Pool is special memory area inside heap.
 
@@ -371,9 +357,7 @@ Duplicate string literals are reused to save memory.
 
 ---
 
-## Q) Difference between equals() and hashCode()?
-
-### Answer
+## Difference between equals() and hashCode()?
 
 - equals() compares content
 - hashCode() returns integer hash value
@@ -392,8 +376,6 @@ Used heavily in:
 ---
 
 # 5. What is String immutability?
-
-## Answer
 
 String objects cannot be modified after creation.
 
@@ -450,9 +432,7 @@ Immutable strings prevent this.
 
 ---
 
-## Q) Where are Strings stored?
-
-### Answer
+## Where are Strings stored?
 
 String objects are stored in heap.
 
@@ -460,17 +440,13 @@ String literals may be stored inside String Pool.
 
 ---
 
-## Q) Why StringBuilder is faster?
-
-### Answer
+## Why StringBuilder is faster?
 
 StringBuilder modifies same object instead of creating new objects repeatedly.
 
 ---
 
 # 6. Difference between String, StringBuilder, and StringBuffer
-
-## Answer
 
 | Feature | String | StringBuilder | StringBuffer |
 |---|---|---|---|
@@ -517,9 +493,7 @@ Thread safe using synchronization.
 
 ---
 
-## Q) When should we use StringBuilder?
-
-### Answer
+## When should we use StringBuilder?
 
 Use StringBuilder in:
 - Single-threaded applications
@@ -531,9 +505,7 @@ Example:
 
 ---
 
-## Q) Why is StringBuffer slower?
-
-### Answer
+## Why is StringBuffer slower?
 
 Because methods are synchronized for thread safety.
 
@@ -542,8 +514,6 @@ Synchronization adds overhead.
 ---
 
 # 7. Explain constructors in Java
-
-## Answer
 
 Constructors initialize objects.
 
@@ -591,9 +561,7 @@ Student(String name) {
 
 ---
 
-## Q) Can constructor be private?
-
-### Answer
+## Can constructor be private?
 
 Yes.
 
@@ -603,9 +571,7 @@ Used in:
 
 ---
 
-## Q) Can constructor be inherited?
-
-### Answer
+## Can constructor be inherited?
 
 No.
 
@@ -613,9 +579,7 @@ Constructors belong to class initialization only.
 
 ---
 
-## Q) Can constructor be overloaded?
-
-### Answer
+## Can constructor be overloaded?
 
 Yes.
 
@@ -624,8 +588,6 @@ Multiple constructors with different parameters are allowed.
 ---
 
 # 8. What is method overloading?
-
-## Answer
 
 Method overloading means multiple methods with same name but different parameters.
 
@@ -665,9 +627,7 @@ Cannot overload only using return type.
 
 ---
 
-## Q) Why can't methods overload only by return type?
-
-### Answer
+## Why can't methods overload only by return type?
 
 Compiler cannot determine which method to call.
 
@@ -682,9 +642,7 @@ Creates ambiguity.
 
 ---
 
-## Q) Is overloading compile-time or runtime?
-
-### Answer
+## Is overloading compile-time or runtime?
 
 Compile-time.
 
@@ -693,8 +651,6 @@ Compiler decides method using parameters.
 ---
 
 # 9. What is method overriding?
-
-## Answer
 
 Method overriding means redefining parent class method in child class.
 
@@ -744,9 +700,7 @@ JVM decides method during runtime.
 
 ---
 
-## Q) Can static methods be overridden?
-
-### Answer
+## Can static methods be overridden?
 
 No.
 
@@ -756,9 +710,7 @@ This is called method hiding.
 
 ---
 
-## Q) Can private methods be overridden?
-
-### Answer
+## Can private methods be overridden?
 
 No.
 
@@ -766,9 +718,7 @@ Private methods are not visible in child class.
 
 ---
 
-## Q) Difference between overload and override?
-
-### Answer
+## Difference between overload and override?
 
 | Overloading | Overriding |
 |---|---|
@@ -779,8 +729,6 @@ Private methods are not visible in child class.
 ---
 
 # 10. Explain inheritance in Java
-
-## Answer
 
 Inheritance allows child class to acquire properties and methods from parent class.
 
@@ -822,17 +770,13 @@ Java does not support multiple inheritance with classes.
 
 ---
 
-## Q) Why Java doesn't support multiple inheritance?
-
-### Answer
+## Why Java doesn't support multiple inheritance?
 
 To avoid Diamond Problem ambiguity.
 
 ---
 
-## Q) What is IS-A relationship?
-
-### Answer
+## What is IS-A relationship?
 
 Inheritance represents IS-A relationship.
 
@@ -845,8 +789,6 @@ Dog IS-A Animal
 ---
 
 # 11. What is encapsulation?
-
-## Answer
 
 Encapsulation means binding data and methods together while restricting direct access.
 
@@ -887,9 +829,7 @@ class Employee {
 
 ---
 
-## Q) Why use getters and setters?
-
-### Answer
+## Why use getters and setters?
 
 They provide controlled access to variables.
 
@@ -903,9 +843,7 @@ if(salary > 0)
 
 ---
 
-## Q) Difference between abstraction and encapsulation?
-
-### Answer
+## Difference between abstraction and encapsulation?
 
 | Abstraction | Encapsulation |
 |---|---|
@@ -915,8 +853,6 @@ if(salary > 0)
 ---
 
 # 12. What is abstraction?
-
-## Answer
 
 Abstraction hides implementation details and shows only important functionality.
 
@@ -952,9 +888,7 @@ Internal engine details are hidden.
 
 ---
 
-## Q) Difference between abstract class and interface?
-
-### Answer
+## Difference between abstract class and interface?
 
 | Abstract Class | Interface |
 |---|---|
@@ -964,9 +898,7 @@ Internal engine details are hidden.
 
 ---
 
-## Q) Can abstract class have constructor?
-
-### Answer
+## Can abstract class have constructor?
 
 Yes.
 
@@ -975,8 +907,6 @@ Used during child object initialization.
 ---
 
 # 13. What is polymorphism?
-
-## Answer
 
 Polymorphism means one entity behaving in multiple ways.
 
@@ -1013,9 +943,7 @@ Behavior changes during runtime.
 
 ---
 
-## Q) What is dynamic method dispatch?
-
-### Answer
+## What is dynamic method dispatch?
 
 Method call resolved during runtime.
 
@@ -1024,8 +952,6 @@ JVM decides which overridden method to execute.
 ---
 
 # 14. Difference between Array and ArrayList
-
-## Answer
 
 | Array | ArrayList |
 |---|---|
@@ -1064,9 +990,7 @@ ArrayList<Integer> list = new ArrayList<>();
 
 ---
 
-## Q) Why ArrayList cannot store primitives?
-
-### Answer
+## Why ArrayList cannot store primitives?
 
 Collections work only with objects.
 
@@ -1074,9 +998,7 @@ Wrapper classes are used instead.
 
 ---
 
-## Q) Difference between ArrayList and LinkedList?
-
-### Answer
+## Difference between ArrayList and LinkedList?
 
 | ArrayList | LinkedList |
 |---|---|
@@ -1086,8 +1008,6 @@ Wrapper classes are used instead.
 ---
 
 # 15. What are exceptions in Java?
-
-## Answer
 
 Exceptions are runtime problems that interrupt normal execution flow.
 
@@ -1150,9 +1070,7 @@ Example:
 
 ---
 
-## Q) Difference between throw and throws?
-
-### Answer
+## Difference between throw and throws?
 
 | throw | throws |
 |---|---|
@@ -1161,9 +1079,7 @@ Example:
 
 ---
 
-## Q) Can finally block skip execution?
-
-### Answer
+## Can finally block skip execution?
 
 Usually no.
 
@@ -1173,9 +1089,7 @@ But may skip in cases like:
 
 ---
 
-## Q) What is custom exception?
-
-### Answer
+## What is custom exception?
 
 User-defined exception created by extending Exception class.
 
@@ -1187,4 +1101,3 @@ class InvalidAgeException extends Exception {
 ```
 
 ---
-```
