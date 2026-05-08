@@ -3828,3 +3828,846 @@ Simplifies concurrent programming.
 
 ---
 
+# 71. What are Java 8 features?
+
+Java 8 introduced major improvements to make Java more functional and concise.
+
+---
+
+## Important Features
+
+- Lambda Expressions
+- Functional Interfaces
+- Stream API
+- Method References
+- Default Methods
+- Optional Class
+- Date and Time API
+- CompletableFuture
+
+---
+
+## Why Java 8 became popular?
+
+- Less boilerplate code
+- Better collection processing
+- Functional programming support
+- Parallel processing
+
+---
+
+# Follow-up Questions
+
+---
+
+## Which Java 8 feature is used most?
+
+Usually:
+- Streams
+- Lambdas
+- Functional interfaces
+
+---
+
+# 72. What is lambda expression?
+
+Lambda expression is a short way to represent anonymous functions.
+
+---
+
+## Syntax
+
+```java
+(parameters) -> expression
+```
+
+---
+
+## Example
+
+Without lambda:
+
+```java
+Runnable r = new Runnable() {
+    public void run() {
+        System.out.println("Hello");
+    }
+};
+```
+
+With lambda:
+
+```java
+Runnable r = () -> System.out.println("Hello");
+```
+
+---
+
+## Advantages
+
+- Cleaner code
+- Less boilerplate
+- Functional programming support
+
+---
+
+# Follow-up Questions
+
+---
+
+## Why lambda works only with functional interfaces?
+
+Because lambda provides implementation for single abstract method.
+
+---
+
+## Can lambda access local variables?
+
+Yes.
+
+But variables must be:
+```text
+final or effectively final
+```
+
+---
+
+# 73. What is functional interface?
+
+Interface containing exactly one abstract method.
+
+---
+
+## Example
+
+```java
+@FunctionalInterface
+interface Test {
+
+    void show();
+}
+```
+
+---
+
+## Common Functional Interfaces
+
+| Interface | Purpose |
+|---|---|
+| Predicate | Condition check |
+| Function | Transformation |
+| Consumer | Consumes input |
+| Supplier | Supplies output |
+
+---
+
+# Follow-up Questions
+
+---
+
+## Why @FunctionalInterface annotation is used?
+
+Ensures interface contains only one abstract method.
+
+Compiler gives error otherwise.
+
+---
+
+## Can functional interface have default methods?
+
+Yes.
+
+Only abstract method count matters.
+
+---
+
+# 74. What is Stream API?
+
+Stream API processes collections in declarative style.
+
+Supports:
+- Filtering
+- Mapping
+- Sorting
+- Aggregation
+
+---
+
+## Example
+
+```java
+List<Integer> list =
+    Arrays.asList(1,2,3,4);
+
+list.stream()
+    .filter(x -> x % 2 == 0)
+    .forEach(System.out::println);
+```
+
+---
+
+## Output
+
+```text
+2
+4
+```
+
+---
+
+## Advantages
+
+- Cleaner code
+- Internal iteration
+- Parallel processing
+
+---
+
+# Follow-up Questions
+
+---
+
+## Does stream store data?
+
+No.
+
+Stream only processes data.
+
+---
+
+## Difference between Collection and Stream?
+
+| Collection | Stream |
+|---|---|
+| Stores data | Processes data |
+| Eager | Lazy |
+
+---
+
+# 75. What is lazy evaluation in streams?
+
+Operations execute only when terminal operation occurs.
+
+---
+
+## Example
+
+```java
+list.stream()
+    .filter(x -> {
+        System.out.println(x);
+        return true;
+    });
+```
+
+Nothing executes until terminal operation.
+
+---
+
+## Terminal Operation Example
+
+```java
+.count()
+```
+
+---
+
+# Follow-up Questions
+
+---
+
+## Why lazy evaluation is useful?
+
+Improves performance by avoiding unnecessary computation.
+
+---
+
+# 76. Difference between intermediate and terminal operations
+
+---
+
+## Intermediate Operations
+
+Return another stream.
+
+Examples:
+- filter()
+- map()
+- sorted()
+
+---
+
+## Terminal Operations
+
+Produce final result.
+
+Examples:
+- collect()
+- count()
+- forEach()
+
+---
+
+## Example
+
+```java
+list.stream()
+    .filter(x -> x > 5)    // intermediate
+    .count();              // terminal
+```
+
+---
+
+# Follow-up Questions
+
+---
+
+## Can stream be reused?
+
+No.
+
+After terminal operation, stream closes.
+
+---
+
+# 77. What is map() in Stream API?
+
+map() transforms elements.
+
+---
+
+## Example
+
+```java
+List<String> names =
+    Arrays.asList("java", "python");
+
+names.stream()
+    .map(String::toUpperCase)
+    .forEach(System.out::println);
+```
+
+---
+
+## Output
+
+```text
+JAVA
+PYTHON
+```
+
+---
+
+# Follow-up Questions
+
+---
+
+## Difference between map() and forEach()?
+
+| map() | forEach() |
+|---|---|
+| Transforms data | Consumes data |
+| Returns stream | Returns void |
+
+---
+
+# 78. What is filter() in streams?
+
+filter() selects elements based on condition.
+
+---
+
+## Example
+
+```java
+list.stream()
+    .filter(x -> x % 2 == 0)
+    .forEach(System.out::println);
+```
+
+---
+
+# Follow-up Questions
+
+---
+
+## Does filter modify original collection?
+
+No.
+
+Streams do not modify original collection unless explicitly done.
+
+---
+
+# 79. What is flatMap()?
+
+flatMap() converts nested structures into single stream.
+
+---
+
+## Example
+
+```java
+List<List<String>> list = Arrays.asList(
+    Arrays.asList("A", "B"),
+    Arrays.asList("C", "D")
+);
+
+list.stream()
+    .flatMap(x -> x.stream())
+    .forEach(System.out::println);
+```
+
+---
+
+## Output
+
+```text
+A
+B
+C
+D
+```
+
+---
+
+# Follow-up Questions
+
+---
+
+## Difference between map() and flatMap()?
+
+| map() | flatMap() |
+|---|---|
+| One-to-one mapping | Many-to-one flattening |
+
+---
+
+# 80. What is Optional class?
+
+Optional avoids NullPointerException.
+
+Represents optional value container.
+
+---
+
+## Example
+
+```java
+Optional<String> name =
+    Optional.of("Java");
+```
+
+---
+
+## Common Methods
+
+| Method | Purpose |
+|---|---|
+| isPresent() | Check value |
+| get() | Retrieve value |
+| orElse() | Default value |
+
+---
+
+## Example
+
+```java
+String result =
+    Optional.ofNullable(name)
+            .orElse("Default");
+```
+
+---
+
+# Follow-up Questions
+
+---
+
+## Why Optional is useful?
+
+Avoids manual null checking.
+
+---
+
+## Can Optional replace all null checks?
+
+Not always.
+
+Used mainly in APIs and return values.
+
+---
+
+# 81. What is method reference?
+
+Short form of lambda expression.
+
+---
+
+## Syntax
+
+```java
+ClassName::methodName
+```
+
+---
+
+## Example
+
+```java
+list.forEach(System.out::println);
+```
+
+Equivalent lambda:
+
+```java
+x -> System.out.println(x)
+```
+
+---
+
+## Types
+
+- Static method reference
+- Instance method reference
+- Constructor reference
+
+---
+
+# Follow-up Questions
+
+---
+
+## When should method references be used?
+
+When lambda only calls existing method.
+
+---
+
+# 82. What are default methods in interfaces?
+
+Interfaces can contain method implementations using default keyword.
+
+Introduced in Java 8.
+
+---
+
+## Example
+
+```java
+interface Test {
+
+    default void show() {
+        System.out.println("Hello");
+    }
+}
+```
+
+---
+
+## Why introduced?
+
+To add new methods to interfaces without breaking old implementations.
+
+---
+
+# Follow-up Questions
+
+---
+
+## Can interface have static methods?
+
+Yes.
+
+---
+
+## Example
+
+```java
+interface Test {
+
+    static void print() {
+    }
+}
+```
+
+---
+
+# 83. What is Predicate interface?
+
+Represents condition returning boolean.
+
+---
+
+## Method
+
+```java
+test()
+```
+
+---
+
+## Example
+
+```java
+Predicate<Integer> p =
+    x -> x > 10;
+
+System.out.println(p.test(20));
+```
+
+---
+
+## Output
+
+```text
+true
+```
+
+---
+
+# Follow-up Questions
+
+---
+
+## Where Predicate is commonly used?
+
+- Filtering
+- Validation
+- Stream API
+
+---
+
+# 84. What is Function interface?
+
+Represents transformation from one type to another.
+
+---
+
+## Method
+
+```java
+apply()
+```
+
+---
+
+## Example
+
+```java
+Function<Integer, Integer> f =
+    x -> x * 2;
+
+System.out.println(f.apply(5));
+```
+
+---
+
+## Output
+
+```text
+10
+```
+
+---
+
+# Follow-up Questions
+
+---
+
+## Difference between Function and Consumer?
+
+| Function | Consumer |
+|---|---|
+| Returns value | No return |
+
+---
+
+# 85. What is Consumer interface?
+
+Consumes input without returning value.
+
+---
+
+## Method
+
+```java
+accept()
+```
+
+---
+
+## Example
+
+```java
+Consumer<String> c =
+    x -> System.out.println(x);
+
+c.accept("Java");
+```
+
+---
+
+# 86. What is Supplier interface?
+
+Supplies values without input.
+
+---
+
+## Method
+
+```java
+get()
+```
+
+---
+
+## Example
+
+```java
+Supplier<Double> s =
+    () -> Math.random();
+
+System.out.println(s.get());
+```
+
+---
+
+# Follow-up Questions
+
+---
+
+## Difference between Supplier and Function?
+
+| Supplier | Function |
+|---|---|
+| No input | Takes input |
+
+---
+
+# 87. What is reduce() in streams?
+
+reduce() combines stream elements into single result.
+
+---
+
+## Example
+
+```java
+int sum = list.stream()
+              .reduce(0, Integer::sum);
+```
+
+---
+
+## Output
+
+```text
+Total sum
+```
+
+---
+
+# Follow-up Questions
+
+---
+
+## Where reduce() is useful?
+
+- Sum
+- Product
+- Maximum
+- Aggregation
+
+---
+
+# 88. What is collect() in streams?
+
+collect() converts stream result into collection/object.
+
+---
+
+## Example
+
+```java
+List<Integer> result =
+    list.stream()
+        .filter(x -> x > 5)
+        .collect(Collectors.toList());
+```
+
+---
+
+# Follow-up Questions
+
+---
+
+## Difference between collect() and reduce()?
+
+| collect() | reduce() |
+|---|---|
+| Mutable reduction | Immutable reduction |
+
+---
+
+# 89. What is groupingBy() collector?
+
+Groups stream elements.
+
+---
+
+## Example
+
+```java
+Map<Integer, List<String>> map =
+    names.stream()
+         .collect(Collectors.groupingBy(
+             String::length
+         ));
+```
+
+---
+
+# Follow-up Questions
+
+---
+
+## Where groupingBy() is useful?
+
+- Reports
+- Categorization
+- Analytics
+
+---
+
+# 90. What is peek() in streams?
+
+peek() performs action during stream processing.
+
+Mostly used for debugging.
+
+---
+
+## Example
+
+```java
+list.stream()
+    .peek(System.out::println)
+    .count();
+```
+
+---
+
+# Follow-up Questions
+
+---
+
+## Difference between peek() and forEach()?
+
+| peek() | forEach() |
+|---|---|
+| Intermediate | Terminal |
+| Mainly debugging | Final processing |
+
+---
+
