@@ -2951,3 +2951,880 @@ transient String password;
 
 ---
 
+# 51. What is multithreading in Java?
+
+Multithreading allows multiple threads to execute simultaneously within a program.
+
+It helps improve:
+- Performance
+- CPU utilization
+- Responsiveness
+
+---
+
+## Real-Time Examples
+
+- Downloading files while browsing
+- Gaming background music
+- Web servers handling multiple users
+
+---
+
+## Example
+
+```java
+class MyThread extends Thread {
+
+    public void run() {
+        System.out.println("Thread running");
+    }
+}
+
+class Main {
+
+    public static void main(String[] args) {
+
+        MyThread t = new MyThread();
+        t.start();
+    }
+}
+```
+
+---
+
+## Important Point
+
+```java
+start()
+```
+
+creates new thread.
+
+```java
+run()
+```
+
+contains thread task.
+
+---
+
+# Follow-up Questions
+
+---
+
+## Difference between process and thread?
+
+| Process | Thread |
+|---|---|
+| Independent program | Part of process |
+| Heavyweight | Lightweight |
+| Separate memory | Shared memory |
+
+---
+
+## Why multithreading is useful?
+
+- Better performance
+- Parallel execution
+- Better responsiveness
+
+---
+
+# 52. Difference between extending Thread and implementing Runnable
+
+Two ways to create threads.
+
+---
+
+## Extending Thread
+
+```java
+class MyThread extends Thread {
+}
+```
+
+---
+
+## Implementing Runnable
+
+```java
+class MyTask implements Runnable {
+}
+```
+
+---
+
+## Why Runnable is Preferred
+
+Java supports single inheritance.
+
+If class extends Thread, it cannot extend another class.
+
+Runnable avoids this limitation.
+
+---
+
+## Example
+
+```java
+class Task implements Runnable {
+
+    public void run() {
+        System.out.println("Running");
+    }
+}
+
+Thread t = new Thread(new Task());
+t.start();
+```
+
+---
+
+# Follow-up Questions
+
+---
+
+## Which is better?
+
+Runnable is generally preferred.
+
+---
+
+## Why?
+
+- Better design
+- Supports inheritance
+- Task and thread separated
+
+---
+
+# 53. What is thread lifecycle in Java?
+
+A thread passes through multiple states.
+
+---
+
+## Thread States
+
+```text
+NEW
+RUNNABLE
+RUNNING
+WAITING
+TIMED_WAITING
+TERMINATED
+```
+
+---
+
+## Lifecycle Flow
+
+```text
+NEW → RUNNABLE → RUNNING → TERMINATED
+```
+
+---
+
+## Example
+
+```java
+Thread t = new Thread();
+```
+
+NEW state.
+
+```java
+t.start();
+```
+
+RUNNABLE state.
+
+---
+
+# Follow-up Questions
+
+---
+
+## Difference between waiting and blocked?
+
+| Waiting | Blocked |
+|---|---|
+| Waiting for notification | Waiting for lock |
+
+---
+
+# 54. What is synchronization?
+
+Synchronization controls access to shared resources.
+
+Prevents multiple threads from modifying data simultaneously.
+
+---
+
+## Problem Without Synchronization
+
+```java
+count++;
+```
+
+Multiple threads may corrupt value.
+
+---
+
+## Example
+
+```java
+synchronized void increment() {
+    count++;
+}
+```
+
+---
+
+## Advantages
+
+- Prevents race conditions
+- Maintains consistency
+
+---
+
+# Follow-up Questions
+
+---
+
+## What is race condition?
+
+Multiple threads accessing shared data simultaneously causing inconsistent results.
+
+---
+
+## Why synchronization is expensive?
+
+Only one thread allowed at a time.
+
+Reduces parallelism.
+
+---
+
+# 55. What is deadlock?
+
+Deadlock occurs when two or more threads wait forever for each other’s resources.
+
+---
+
+## Example Scenario
+
+Thread 1:
+- Holds Lock A
+- Waiting for Lock B
+
+Thread 2:
+- Holds Lock B
+- Waiting for Lock A
+
+Both wait forever.
+
+---
+
+## Example
+
+```text
+T1 → Lock A → Waiting Lock B
+T2 → Lock B → Waiting Lock A
+```
+
+---
+
+# Follow-up Questions
+
+---
+
+## How to prevent deadlock?
+
+- Consistent lock ordering
+- Avoid nested locks
+- Use timeout locks
+
+---
+
+## What is starvation?
+
+Thread never gets CPU/resources because others dominate execution.
+
+---
+
+# 56. What is volatile keyword?
+
+volatile ensures latest variable value is visible across threads.
+
+---
+
+## Example
+
+```java
+volatile boolean running = true;
+```
+
+---
+
+## Why volatile is needed?
+
+Without volatile:
+- Threads may cache old values
+
+volatile forces direct memory read.
+
+---
+
+# Follow-up Questions
+
+---
+
+## Does volatile provide thread safety?
+
+No.
+
+Only visibility guarantee.
+
+Not atomicity.
+
+---
+
+## Difference between volatile and synchronized?
+
+| volatile | synchronized |
+|---|---|
+| Visibility only | Visibility + atomicity |
+| Faster | Slower |
+
+---
+
+# 57. What is thread-safe class?
+
+Thread-safe class works correctly when multiple threads access simultaneously.
+
+---
+
+## Example
+
+```java
+StringBuffer
+Vector
+ConcurrentHashMap
+```
+
+---
+
+# Follow-up Questions
+
+---
+
+## Why StringBuilder is not thread-safe?
+
+Methods are not synchronized.
+
+---
+
+# 58. Difference between sleep() and wait()
+
+---
+
+## sleep()
+
+Pauses thread for specific time.
+
+Belongs to Thread class.
+
+Does NOT release lock.
+
+---
+
+## wait()
+
+Pauses thread until notification.
+
+Belongs to Object class.
+
+Releases lock.
+
+---
+
+## Comparison
+
+| sleep() | wait() |
+|---|---|
+| Thread class | Object class |
+| Keeps lock | Releases lock |
+| Time-based | Notification-based |
+
+---
+
+## Example
+
+```java
+Thread.sleep(1000);
+```
+
+---
+
+# Follow-up Questions
+
+---
+
+## Why wait() must be inside synchronized block?
+
+Because thread must own monitor lock.
+
+---
+
+# 59. Difference between notify() and notifyAll()
+
+Both wake waiting threads.
+
+---
+
+## notify()
+
+Wakes one waiting thread.
+
+---
+
+## notifyAll()
+
+Wakes all waiting threads.
+
+---
+
+## Example
+
+```java
+notify();
+```
+
+```java
+notifyAll();
+```
+
+---
+
+# Follow-up Questions
+
+---
+
+## Which is safer?
+
+notifyAll()
+
+Avoids missed notifications in complex systems.
+
+---
+
+# 60. What is Executor Framework?
+
+Executor Framework simplifies thread management.
+
+Introduced in Java 5.
+
+---
+
+## Advantages
+
+- Thread pooling
+- Better performance
+- Task scheduling
+- Resource management
+
+---
+
+## Example
+
+```java
+ExecutorService service =
+    Executors.newFixedThreadPool(3);
+
+service.submit(() -> {
+    System.out.println("Task");
+});
+```
+
+---
+
+# Follow-up Questions
+
+---
+
+## Why thread pool is better?
+
+Creating threads repeatedly is expensive.
+
+Thread pool reuses threads.
+
+---
+
+## What is ExecutorService?
+
+Main interface for managing threads/tasks.
+
+---
+
+# 61. What is Callable and Future?
+
+Callable returns result from thread.
+
+Future holds result.
+
+---
+
+## Runnable vs Callable
+
+| Runnable | Callable |
+|---|---|
+| No return value | Returns value |
+| Cannot throw checked exception | Can throw exception |
+
+---
+
+## Example
+
+```java
+Callable<Integer> task = () -> 100;
+```
+
+---
+
+## Future Example
+
+```java
+Future<Integer> result =
+    service.submit(task);
+
+System.out.println(result.get());
+```
+
+---
+
+# Follow-up Questions
+
+---
+
+## What does Future.get() do?
+
+Waits until result available.
+
+---
+
+# 62. What is ConcurrentHashMap?
+
+Thread-safe version of HashMap.
+
+Allows concurrent access.
+
+---
+
+## Advantages
+
+- Better performance than Hashtable
+- Multiple threads can work simultaneously
+
+---
+
+## Example
+
+```java
+ConcurrentHashMap<Integer, String> map =
+    new ConcurrentHashMap<>();
+```
+
+---
+
+# Follow-up Questions
+
+---
+
+## Why ConcurrentHashMap is faster than Hashtable?
+
+Hashtable locks entire map.
+
+ConcurrentHashMap uses finer locking.
+
+---
+
+# 63. What is Java Memory Model (JMM)?
+
+JMM defines how threads interact with memory.
+
+Controls:
+- Visibility
+- Ordering
+- Atomicity
+
+---
+
+## Important Concepts
+
+- Main memory
+- Working memory
+- Happens-before relationship
+
+---
+
+# Follow-up Questions
+
+---
+
+## Why JMM is important?
+
+Without JMM:
+- Threads may see stale values
+- Inconsistent behavior occurs
+
+---
+
+# 64. What is atomic operation?
+
+Atomic operation executes completely or not at all.
+
+No intermediate state visible.
+
+---
+
+## Example
+
+```java
+AtomicInteger count =
+    new AtomicInteger();
+```
+
+---
+
+## Increment Example
+
+```java
+count.incrementAndGet();
+```
+
+---
+
+# Follow-up Questions
+
+---
+
+## Why count++ is not atomic?
+
+Internally:
+
+```text
+Read → Modify → Write
+```
+
+Multiple steps involved.
+
+---
+
+# 65. What is ThreadLocal?
+
+ThreadLocal creates separate variable copy for each thread.
+
+---
+
+## Example
+
+```java
+ThreadLocal<Integer> local =
+    new ThreadLocal<>();
+```
+
+---
+
+## Uses
+
+- User sessions
+- Database connections
+- Transactions
+
+---
+
+# Follow-up Questions
+
+---
+
+## Why ThreadLocal is useful?
+
+Avoids shared data issues between threads.
+
+---
+
+# 66. What is immutable object in multithreading?
+
+Immutable objects are naturally thread-safe because state cannot change.
+
+---
+
+## Example
+
+```java
+String
+Integer
+LocalDate
+```
+
+---
+
+# Follow-up Questions
+
+---
+
+## Why immutable objects are preferred in concurrency?
+
+No synchronization needed.
+
+Safe sharing between threads.
+
+---
+
+# 67. What is ForkJoinPool?
+
+Framework for parallel task execution.
+
+Uses divide-and-conquer approach.
+
+---
+
+## Example
+
+Large task divided into smaller subtasks.
+
+---
+
+## Main Classes
+
+- ForkJoinPool
+- RecursiveTask
+- RecursiveAction
+
+---
+
+# Follow-up Questions
+
+---
+
+## Where is ForkJoinPool used?
+
+Parallel streams internally use it.
+
+---
+
+# 68. What is parallel stream?
+
+Parallel stream processes data using multiple threads.
+
+---
+
+## Example
+
+```java
+list.parallelStream()
+    .forEach(System.out::println);
+```
+
+---
+
+## Advantages
+
+- Faster processing for large datasets
+
+---
+
+# Follow-up Questions
+
+---
+
+## When should parallel streams be avoided?
+
+- Small datasets
+- Shared mutable data
+- Expensive synchronization
+
+---
+
+# 69. What is CompletableFuture?
+
+Used for asynchronous programming.
+
+Allows non-blocking task execution.
+
+---
+
+## Example
+
+```java
+CompletableFuture.runAsync(() -> {
+    System.out.println("Async Task");
+});
+```
+
+---
+
+## Advantages
+
+- Async execution
+- Chaining tasks
+- Better readability
+
+---
+
+# Follow-up Questions
+
+---
+
+## Difference between Future and CompletableFuture?
+
+| Future | CompletableFuture |
+|---|---|
+| Basic async | Advanced async |
+| Cannot chain easily | Supports chaining |
+
+---
+
+# 70. What is producer-consumer problem?
+
+Classic multithreading problem.
+
+Producer creates data.
+
+Consumer uses data.
+
+Need synchronization to avoid:
+- Overflow
+- Underflow
+
+---
+
+## Solution Approaches
+
+- wait()/notify()
+- BlockingQueue
+
+---
+
+## Example
+
+```java
+BlockingQueue<Integer> queue =
+    new ArrayBlockingQueue<>(10);
+```
+
+---
+
+# Follow-up Questions
+
+---
+
+## Why BlockingQueue is preferred?
+
+Handles synchronization internally.
+
+Simplifies concurrent programming.
+
+---
+
