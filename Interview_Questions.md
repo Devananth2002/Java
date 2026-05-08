@@ -2010,4 +2010,944 @@ Because non-static variables belong to objects.
 
 JVM calls main() without creating object.
 
+
 ---
+
+# 31. What is the difference between class and object?
+
+A class is a blueprint or template.
+
+An object is a real instance created from the class.
+
+---
+
+## Example
+
+```java
+class Car {
+
+    String color;
+
+    void drive() {
+        System.out.println("Driving");
+    }
+}
+```
+
+Object creation:
+
+```java
+Car c = new Car();
+```
+
+---
+
+## Real-Time Example
+
+```text
+Class  → Car Blueprint
+Object → Actual Car
+```
+
+---
+
+# Follow-up Questions
+
+---
+
+## Where are objects stored?
+
+Objects are stored in heap memory.
+
+---
+
+## What does new keyword do?
+
+- Allocates memory
+- Creates object
+- Returns reference
+
+---
+
+# 32. What is the difference between instance variable, local variable, and static variable?
+
+---
+
+## Instance Variable
+
+Belongs to object.
+
+Each object gets separate copy.
+
+---
+
+## Static Variable
+
+Belongs to class.
+
+Shared among all objects.
+
+---
+
+## Local Variable
+
+Declared inside methods.
+
+Exists only during method execution.
+
+---
+
+## Example
+
+```java
+class Test {
+
+    static int x = 10;     // static
+    int y = 20;            // instance
+
+    void show() {
+        int z = 30;        // local
+    }
+}
+```
+
+---
+
+## Comparison
+
+| Variable | Memory | Scope |
+|---|---|---|
+| Static | Method Area | Class |
+| Instance | Heap | Object |
+| Local | Stack | Method |
+
+---
+
+# Follow-up Questions
+
+---
+
+## Which variables get default values?
+
+- Static variables
+- Instance variables
+
+Local variables do not.
+
+---
+
+## Why local variables don't get default values?
+
+Compiler forces initialization to avoid garbage values.
+
+---
+
+# 33. What is this keyword?
+
+`this` refers to current object.
+
+---
+
+## Uses of this
+
+- Access current object variables
+- Call current object methods
+- Invoke constructors
+- Pass current object
+
+---
+
+## Example
+
+```java
+class Student {
+
+    int id;
+
+    Student(int id) {
+        this.id = id;
+    }
+}
+```
+
+---
+
+## Why this is needed?
+
+To differentiate:
+- instance variable
+- local variable
+
+---
+
+# Follow-up Questions
+
+---
+
+## Can we use this inside static method?
+
+No.
+
+Static methods belong to class, not object.
+
+---
+
+## What is this()?
+
+Used to call another constructor in same class.
+
+---
+
+## Example
+
+```java
+class Test {
+
+    Test() {
+        this(10);
+    }
+
+    Test(int x) {
+    }
+}
+```
+
+---
+
+# 34. What is super keyword?
+
+`super` refers to parent class object.
+
+---
+
+## Uses
+
+- Access parent variables
+- Access parent methods
+- Call parent constructor
+
+---
+
+## Example
+
+```java
+class Animal {
+
+    void sound() {
+        System.out.println("Animal");
+    }
+}
+
+class Dog extends Animal {
+
+    void sound() {
+        super.sound();
+        System.out.println("Dog");
+    }
+}
+```
+
+---
+
+# Follow-up Questions
+
+---
+
+## What is super()?
+
+Calls parent constructor.
+
+Automatically added by compiler.
+
+---
+
+## Can we use both this() and super() together?
+
+No.
+
+Constructor first statement can only be one.
+
+---
+
+# 35. What are access modifiers in Java?
+
+Access modifiers control visibility.
+
+---
+
+## Types
+
+| Modifier | Same Class | Same Package | Child Class | Other Package |
+|---|---|---|---|---|
+| private | Yes | No | No | No |
+| default | Yes | Yes | No | No |
+| protected | Yes | Yes | Yes | No |
+| public | Yes | Yes | Yes | Yes |
+
+---
+
+## Example
+
+```java
+private int salary;
+```
+
+---
+
+# Follow-up Questions
+
+---
+
+## What is default access modifier?
+
+No modifier specified.
+
+Accessible only inside same package.
+
+---
+
+## Which modifier gives maximum restriction?
+
+private
+
+---
+
+# 36. What is final keyword?
+
+final restricts modification.
+
+---
+
+## final Variable
+
+Cannot change value.
+
+```java
+final int x = 10;
+```
+
+---
+
+## final Method
+
+Cannot override.
+
+---
+
+## final Class
+
+Cannot inherit.
+
+---
+
+## Example
+
+```java
+final class Utility {
+}
+```
+
+---
+
+# Follow-up Questions
+
+---
+
+## Why String class is final?
+
+To prevent inheritance and maintain immutability/security.
+
+---
+
+## Can final variable be initialized later?
+
+Yes.
+
+Inside constructor.
+
+---
+
+# 37. What is instanceof operator?
+
+Checks whether object belongs to specific class.
+
+---
+
+## Example
+
+```java
+Dog d = new Dog();
+
+System.out.println(d instanceof Dog);
+```
+
+Output:
+
+```text
+true
+```
+
+---
+
+# Follow-up Questions
+
+---
+
+## Why instanceof is useful?
+
+Used before type casting to avoid ClassCastException.
+
+---
+
+# 38. What is type casting in Java?
+
+Converting one type into another.
+
+---
+
+## Primitive Casting
+
+### Widening
+
+Automatic conversion.
+
+```java
+int x = 10;
+double y = x;
+```
+
+---
+
+### Narrowing
+
+Manual conversion.
+
+```java
+double x = 10.5;
+int y = (int)x;
+```
+
+---
+
+## Object Casting
+
+---
+
+### Upcasting
+
+Child → Parent
+
+```java
+Animal a = new Dog();
+```
+
+---
+
+### Downcasting
+
+Parent → Child
+
+```java
+Dog d = (Dog)a;
+```
+
+---
+
+# Follow-up Questions
+
+---
+
+## Why downcasting is risky?
+
+May throw:
+
+```text
+ClassCastException
+```
+
+if object type mismatches.
+
+---
+
+# 39. What is aggregation?
+
+Aggregation represents HAS-A relationship.
+
+One class contains another class reference.
+
+---
+
+## Example
+
+```java
+class Address {
+}
+
+class Employee {
+
+    Address address;
+}
+```
+
+Employee HAS-A Address.
+
+---
+
+## Special Point
+
+Contained object can exist independently.
+
+---
+
+# Follow-up Questions
+
+---
+
+## Difference between aggregation and inheritance?
+
+| Aggregation | Inheritance |
+|---|---|
+| HAS-A | IS-A |
+| Reuse by composition | Reuse by extension |
+
+---
+
+# 40. What is composition?
+
+Strong form of aggregation.
+
+Contained object cannot exist independently.
+
+---
+
+## Example
+
+```java
+class Engine {
+}
+
+class Car {
+
+    private Engine engine = new Engine();
+}
+```
+
+Destroying Car destroys Engine relation.
+
+---
+
+# Follow-up Questions
+
+---
+
+## Difference between aggregation and composition?
+
+| Aggregation | Composition |
+|---|---|
+| Weak relationship | Strong relationship |
+| Independent lifecycle | Dependent lifecycle |
+
+---
+
+# 41. What is association?
+
+Association represents relationship between objects.
+
+---
+
+## Example
+
+```text
+Teacher teaches Student
+```
+
+Both can exist independently.
+
+---
+
+## Types
+
+- One-to-One
+- One-to-Many
+- Many-to-Many
+
+---
+
+# 42. What is coupling in Java?
+
+Coupling means dependency between classes.
+
+---
+
+## Tight Coupling
+
+Classes heavily depend on each other.
+
+Hard to maintain.
+
+---
+
+## Loose Coupling
+
+Minimal dependency.
+
+Easy to maintain/test.
+
+---
+
+## Example
+
+Using interfaces promotes loose coupling.
+
+---
+
+# Follow-up Questions
+
+---
+
+## Why loose coupling is preferred?
+
+- Easier testing
+- Better maintainability
+- Flexible design
+
+---
+
+# 43. What is cohesion?
+
+Cohesion measures how strongly related class responsibilities are.
+
+---
+
+## High Cohesion
+
+Class performs single focused task.
+
+Preferred design.
+
+---
+
+## Low Cohesion
+
+Class performs unrelated tasks.
+
+Bad design.
+
+---
+
+# Follow-up Questions
+
+---
+
+## Difference between coupling and cohesion?
+
+| Coupling | Cohesion |
+|---|---|
+| Between classes | Within class |
+| Low preferred | High preferred |
+
+---
+
+# 44. What is package in Java?
+
+Package groups related classes/interfaces.
+
+---
+
+## Advantages
+
+- Avoid naming conflicts
+- Better organization
+- Access control
+
+---
+
+## Example
+
+```java
+package com.company.project;
+```
+
+---
+
+# Follow-up Questions
+
+---
+
+## Difference between import and package?
+
+| package | import |
+|---|---|
+| Declares package | Uses package classes |
+
+---
+
+# 45. What is singleton class?
+
+Singleton allows only one object creation.
+
+---
+
+## Example
+
+```java
+class Singleton {
+
+    private static Singleton obj =
+        new Singleton();
+
+    private Singleton() {
+    }
+
+    public static Singleton getInstance() {
+        return obj;
+    }
+}
+```
+
+---
+
+## Uses
+
+- Logging
+- Configuration
+- Database connection
+
+---
+
+# Follow-up Questions
+
+---
+
+## Why constructor is private in Singleton?
+
+Prevents external object creation.
+
+---
+
+## Is Singleton thread-safe?
+
+Depends on implementation.
+
+Need synchronization for multithreading.
+
+---
+
+# 46. What is mutable and immutable object?
+
+---
+
+## Mutable Object
+
+Object state can change.
+
+Example:
+
+```java
+StringBuilder
+```
+
+---
+
+## Immutable Object
+
+Object state cannot change.
+
+Example:
+
+```java
+String
+```
+
+---
+
+# Follow-up Questions
+
+---
+
+## Why immutable objects are thread-safe?
+
+State never changes after creation.
+
+No synchronization needed.
+
+---
+
+# 47. What is shallow copy and deep copy?
+
+---
+
+## Shallow Copy
+
+Copies references.
+
+Nested objects shared.
+
+---
+
+## Deep Copy
+
+Copies entire object hierarchy.
+
+Independent objects created.
+
+---
+
+## Example
+
+```text
+Shallow → Shared references
+Deep    → Separate references
+```
+
+---
+
+# Follow-up Questions
+
+---
+
+## Which is safer?
+
+Deep copy.
+
+Because changes won't affect original object.
+
+---
+
+# 48. What is clone() method?
+
+clone() creates copy of object.
+
+Defined in Object class.
+
+---
+
+## Example
+
+```java
+Student s2 = (Student)s1.clone();
+```
+
+---
+
+## Important Point
+
+Class must implement:
+
+```java
+Cloneable
+```
+
+otherwise:
+
+```text
+CloneNotSupportedException
+```
+
+occurs.
+
+---
+
+# Follow-up Questions
+
+---
+
+## Why clone() is controversial?
+
+- Shallow copy issues
+- Complex implementation
+- Constructor bypassing
+
+Many developers prefer copy constructors.
+
+---
+
+# 49. What is marker interface?
+
+Interface without methods.
+
+Used to provide metadata to JVM/compiler.
+
+---
+
+## Examples
+
+- Serializable
+- Cloneable
+
+---
+
+## Example
+
+```java
+interface Serializable {
+}
+```
+
+---
+
+# Follow-up Questions
+
+---
+
+## Why marker interfaces are used?
+
+To signal special behavior.
+
+Example:
+- Serialization support
+
+---
+
+# 50. What is serialization in Java?
+
+Serialization converts object into byte stream.
+
+Used for:
+- File storage
+- Network transfer
+- Caching
+
+---
+
+## Example
+
+```java
+class Student implements Serializable {
+}
+```
+
+---
+
+## Deserialization
+
+Byte stream converted back into object.
+
+---
+
+# Follow-up Questions
+
+---
+
+## What is transient keyword?
+
+Prevents variable serialization.
+
+---
+
+## Example
+
+```java
+transient String password;
+```
+
+---
+
+## Why serialization is useful?
+
+- Data persistence
+- Distributed systems
+- Session storage
+
+---
+
