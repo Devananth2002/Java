@@ -1101,3 +1101,913 @@ class InvalidAgeException extends Exception {
 ```
 
 ---
+
+# 16. What is the Java Collections Framework?
+
+Java Collections Framework (JCF) is a set of classes and interfaces used to store and manipulate groups of objects efficiently.
+
+It provides:
+- Dynamic data structures
+- Searching
+- Sorting
+- Insertion
+- Deletion
+- Traversal utilities
+
+---
+
+## Main Interfaces
+
+```text
+Collection
+ ├── List
+ ├── Set
+ └── Queue
+
+Map (separate hierarchy)
+```
+
+---
+
+## Important Implementations
+
+| Interface | Common Classes |
+|---|---|
+| List | ArrayList, LinkedList, Vector |
+| Set | HashSet, LinkedHashSet, TreeSet |
+| Queue | PriorityQueue |
+| Map | HashMap, LinkedHashMap, TreeMap |
+
+---
+
+## Advantages
+
+- Reusable data structures
+- Reduces coding effort
+- Improves performance
+- Built-in algorithms
+
+---
+
+# Follow-up Questions
+
+---
+
+## Why Map is not part of Collection interface?
+
+Map stores key-value pairs instead of individual objects.
+
+So its structure differs from Collection hierarchy.
+
+---
+
+## Difference between Collection and Collections?
+
+| Collection | Collections |
+|---|---|
+| Interface | Utility class |
+| Represents data structure | Provides helper methods |
+
+Example:
+
+```java
+Collections.sort(list);
+```
+
+---
+
+# 17. Difference between ArrayList and LinkedList
+
+Both implement List interface but internally work differently.
+
+---
+
+## ArrayList
+
+Uses dynamic array internally.
+
+Best for:
+- Fast random access
+- Read-heavy operations
+
+---
+
+## LinkedList
+
+Uses doubly linked list internally.
+
+Best for:
+- Frequent insertion/deletion
+
+---
+
+## Comparison
+
+| Feature | ArrayList | LinkedList |
+|---|---|---|
+| Internal Structure | Dynamic Array | Doubly Linked List |
+| Random Access | Fast | Slow |
+| Insertion Middle | Slow | Fast |
+| Memory Usage | Less | More |
+
+---
+
+## Example
+
+```java
+List<Integer> list = new ArrayList<>();
+```
+
+```java
+List<Integer> list = new LinkedList<>();
+```
+
+---
+
+# Follow-up Questions
+
+---
+
+## Why random access is slow in LinkedList?
+
+LinkedList nodes are connected using references.
+
+To access an element, traversal is required.
+
+---
+
+## Which is better for searching?
+
+ArrayList.
+
+Because indexing is fast.
+
+---
+
+# 18. Difference between HashMap and Hashtable
+
+Both store key-value pairs.
+
+---
+
+## HashMap
+
+- Not synchronized
+- Faster
+- Allows one null key
+- Allows multiple null values
+
+---
+
+## Hashtable
+
+- Synchronized
+- Slower
+- No null key/value allowed
+
+---
+
+## Comparison
+
+| Feature | HashMap | Hashtable |
+|---|---|---|
+| Thread Safe | No | Yes |
+| Performance | Faster | Slower |
+| Null Key | Allowed | Not Allowed |
+| Null Values | Allowed | Not Allowed |
+
+---
+
+## Example
+
+```java
+HashMap<Integer, String> map = new HashMap<>();
+```
+
+---
+
+# Follow-up Questions
+
+---
+
+## Why is HashMap faster?
+
+No synchronization overhead.
+
+---
+
+## Is HashMap thread-safe?
+
+No.
+
+Use:
+- ConcurrentHashMap
+- Collections.synchronizedMap()
+
+for thread safety.
+
+---
+
+# 19. How does HashMap work internally?
+
+HashMap stores data in key-value pairs using hashing.
+
+---
+
+## Internal Working
+
+### Step 1 — hashCode()
+
+HashMap calculates hashcode of key.
+
+```java
+key.hashCode()
+```
+
+---
+
+### Step 2 — Bucket Index
+
+Hash determines bucket location.
+
+---
+
+### Step 3 — Store Entry
+
+Data stored as:
+
+```text
+Node<Key, Value>
+```
+
+---
+
+### Step 4 — Collision Handling
+
+If multiple keys map to same bucket:
+- Linked List used
+- Java 8 may convert to Red-Black Tree
+
+---
+
+## Example
+
+```java
+map.put(101, "John");
+```
+
+---
+
+## Internal Structure
+
+```text
+Bucket
+  ↓
+[101=John] → [201=Sam]
+```
+
+---
+
+# Follow-up Questions
+
+---
+
+## What is collision in HashMap?
+
+When multiple keys map to same bucket.
+
+---
+
+## Why equals() and hashCode() are important?
+
+HashMap uses:
+- hashCode() to locate bucket
+- equals() to compare keys
+
+---
+
+## What happens if hashCode() is same?
+
+equals() is used for exact comparison.
+
+---
+
+## Why HashMap performance becomes slow sometimes?
+
+Too many collisions increase traversal time.
+
+---
+
+# 20. Difference between HashSet, LinkedHashSet, and TreeSet
+
+All implement Set interface.
+
+Set stores unique values only.
+
+---
+
+## HashSet
+
+- No order maintained
+- Fastest
+
+---
+
+## LinkedHashSet
+
+- Maintains insertion order
+
+---
+
+## TreeSet
+
+- Stores sorted data
+- Uses Red-Black Tree
+
+---
+
+## Comparison
+
+| Feature | HashSet | LinkedHashSet | TreeSet |
+|---|---|---|---|
+| Order | No | Insertion Order | Sorted |
+| Performance | Fastest | Medium | Slow |
+| Null Allowed | Yes | Yes | Usually One |
+
+---
+
+## Example
+
+```java
+Set<Integer> set = new TreeSet<>();
+```
+
+---
+
+# Follow-up Questions
+
+---
+
+## Why TreeSet is slower?
+
+Sorting is maintained internally.
+
+Uses tree operations.
+
+---
+
+## Can duplicates exist in Set?
+
+No.
+
+---
+
+# 21. Difference between Comparable and Comparator
+
+Both used for sorting.
+
+---
+
+## Comparable
+
+Defines natural sorting order inside class.
+
+Method:
+
+```java
+compareTo()
+```
+
+---
+
+## Example
+
+```java
+class Student implements Comparable<Student> {
+
+    int age;
+
+    public int compareTo(Student s) {
+        return this.age - s.age;
+    }
+}
+```
+
+---
+
+## Comparator
+
+Used for custom sorting externally.
+
+Method:
+
+```java
+compare()
+```
+
+---
+
+## Example
+
+```java
+Comparator<Student> c =
+    (a, b) -> a.age - b.age;
+```
+
+---
+
+## Comparison
+
+| Comparable | Comparator |
+|---|---|
+| Inside class | Outside class |
+| One sorting logic | Multiple sorting logic |
+| compareTo() | compare() |
+
+---
+
+# Follow-up Questions
+
+---
+
+## Which is better?
+
+Depends.
+
+- Comparable → default sorting
+- Comparator → multiple custom sorting
+
+---
+
+# 22. What is Iterator?
+
+Iterator is used to traverse collections one element at a time.
+
+---
+
+## Methods
+
+| Method | Purpose |
+|---|---|
+| hasNext() | Checks next element |
+| next() | Returns next element |
+| remove() | Removes element |
+
+---
+
+## Example
+
+```java
+Iterator<Integer> it = list.iterator();
+
+while(it.hasNext()) {
+    System.out.println(it.next());
+}
+```
+
+---
+
+# Follow-up Questions
+
+---
+
+## Difference between Iterator and ListIterator?
+
+| Iterator | ListIterator |
+|---|---|
+| Forward only | Both directions |
+| Works on all collections | Works on List only |
+
+---
+
+## What is fail-fast iterator?
+
+Throws ConcurrentModificationException if collection modified during iteration.
+
+---
+
+# 23. What is Generics in Java?
+
+Generics provide type safety.
+
+Allows specifying data type during object creation.
+
+---
+
+## Without Generics
+
+```java
+ArrayList list = new ArrayList();
+```
+
+Any object can be inserted.
+
+---
+
+## With Generics
+
+```java
+ArrayList<String> list = new ArrayList<>();
+```
+
+Only String allowed.
+
+---
+
+## Advantages
+
+- Type safety
+- Compile-time checking
+- Removes type casting
+
+---
+
+# Follow-up Questions
+
+---
+
+## What is type erasure?
+
+Generic type information removed during compilation.
+
+Java maintains backward compatibility.
+
+---
+
+## Can we use primitive types in Generics?
+
+No.
+
+Use wrapper classes.
+
+Example:
+
+```java
+ArrayList<Integer>
+```
+
+---
+
+# 24. What is the difference between fail-fast and fail-safe?
+
+---
+
+## Fail-Fast
+
+Throws exception if collection modified during iteration.
+
+Example:
+- ArrayList iterator
+
+---
+
+## Fail-Safe
+
+Works on cloned copy.
+
+No exception occurs.
+
+Example:
+- ConcurrentHashMap
+
+---
+
+## Example
+
+```java
+ConcurrentHashMap<Integer, String> map
+```
+
+---
+
+# Follow-up Questions
+
+---
+
+## Why fail-fast exists?
+
+To prevent inconsistent behavior during iteration.
+
+---
+
+# 25. What is ConcurrentModificationException?
+
+Occurs when collection modified while iterating.
+
+---
+
+## Example
+
+```java
+for(String s : list) {
+    list.remove(s);
+}
+```
+
+May throw:
+
+```text
+ConcurrentModificationException
+```
+
+---
+
+## Correct Way
+
+Use Iterator remove():
+
+```java
+Iterator<String> it = list.iterator();
+
+while(it.hasNext()) {
+    it.next();
+    it.remove();
+}
+```
+
+---
+
+# Follow-up Questions
+
+---
+
+## Does ConcurrentModificationException occur always?
+
+No.
+
+It is best-effort behavior.
+
+---
+
+# 26. What is immutable class?
+
+Immutable class objects cannot change after creation.
+
+---
+
+## Example
+
+String class is immutable.
+
+---
+
+## Rules to Create Immutable Class
+
+- Make class final
+- Make fields private final
+- No setters
+- Initialize through constructor
+
+---
+
+## Example
+
+```java
+final class Employee {
+
+    private final int id;
+
+    Employee(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+}
+```
+
+---
+
+# Follow-up Questions
+
+---
+
+## Why immutable objects are useful?
+
+- Thread safe
+- Secure
+- Easy caching
+- Safe sharing
+
+---
+
+# 27. What is Object class in Java?
+
+Object class is parent of all Java classes.
+
+Every class implicitly extends Object.
+
+---
+
+## Important Methods
+
+| Method | Purpose |
+|---|---|
+| toString() | Object string representation |
+| equals() | Compare objects |
+| hashCode() | Hash value |
+| clone() | Copy object |
+| finalize() | Cleanup |
+
+---
+
+## Example
+
+```java
+class Student {
+}
+```
+
+Actually becomes:
+
+```java
+class Student extends Object {
+}
+```
+
+---
+
+# Follow-up Questions
+
+---
+
+## Why override toString()?
+
+Provides meaningful object output.
+
+---
+
+## Example
+
+```java
+System.out.println(obj);
+```
+
+Internally calls:
+
+```java
+obj.toString()
+```
+
+---
+
+# 28. What is garbage collection?
+
+Garbage collection automatically removes unused objects from memory.
+
+Handled by JVM.
+
+---
+
+## Example
+
+```java
+Student s = new Student();
+
+s = null;
+```
+
+Object becomes eligible for garbage collection.
+
+---
+
+## Advantages
+
+- Automatic memory management
+- Prevents memory leaks
+- Simplifies programming
+
+---
+
+# Follow-up Questions
+
+---
+
+## Can we force garbage collection?
+
+We can request using:
+
+```java
+System.gc();
+```
+
+But JVM may ignore it.
+
+---
+
+## What is memory leak in Java?
+
+Unused objects retained unnecessarily.
+
+Usually due to references not cleared.
+
+---
+
+# 29. Difference between stack and heap memory
+
+---
+
+## Stack Memory
+
+Stores:
+- Local variables
+- Method calls
+
+Fast access.
+
+---
+
+## Heap Memory
+
+Stores:
+- Objects
+- Instance variables
+
+Shared across threads.
+
+---
+
+## Comparison
+
+| Stack | Heap |
+|---|---|
+| Method memory | Object memory |
+| Faster | Slower |
+| Thread specific | Shared |
+
+---
+
+# Follow-up Questions
+
+---
+
+## Where are objects stored?
+
+Heap memory.
+
+---
+
+## Where are references stored?
+
+Usually in stack for local variables.
+
+---
+
+# 30. What is static keyword in Java?
+
+static belongs to class instead of object.
+
+Shared among all objects.
+
+---
+
+## Static Variable Example
+
+```java
+class Student {
+
+    static String college = "ABC";
+}
+```
+
+Single copy shared.
+
+---
+
+## Static Method Example
+
+```java
+static void show() {
+}
+```
+
+Can be called without object.
+
+---
+
+## Example
+
+```java
+Math.max(10, 20);
+```
+
+---
+
+# Follow-up Questions
+
+---
+
+## Can static methods access non-static variables?
+
+No.
+
+Because non-static variables belong to objects.
+
+---
+
+## Why main method is static?
+
+JVM calls main() without creating object.
+
+---
